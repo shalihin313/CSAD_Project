@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="addStyle.css">
     </head>
     <body>
-        <form method="get" action="insert.php">
+        <form method="get" action="insert.php" data-netlify="true">
             <div class="add-grp">
                 <h1> MOVIES</h1>
             <div class="add-grp-label">

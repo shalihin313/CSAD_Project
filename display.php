@@ -30,7 +30,7 @@
     <tbody>
         <?php 
         include 'serverData.php';
-        $sql = "select * from `movies`";
+        $sql = "select * from `movie`";
         $result = mysqli_query($conn, $sql);
         
         if($result){

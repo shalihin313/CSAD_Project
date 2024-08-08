@@ -16,7 +16,7 @@ $servername = "localhost";
 if(isset($_GET['deleteid'])){
     $id = $_GET['deleteid'];
     
-    $sql = "delete from `movies` where id=$id";
+    $sql = "delete from `movie` where id=$id";
     $result = mysqli_query($conn, $sql);
     
     

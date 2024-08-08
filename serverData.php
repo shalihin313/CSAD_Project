@@ -28,7 +28,7 @@
             $rating= $_POST['rating'];
             $poster= $_POST['poster'];
             
-            $sql = "INSERT INTO movies (title, genre, director, date, description, rating, poster)
+            $sql = "INSERT INTO movie (title, genre, director, date, description, rating, poster)
         VALUES ('$title', '$genre', '$director', '$date','$description', '$rating', '$poster')";
             
             if($result){

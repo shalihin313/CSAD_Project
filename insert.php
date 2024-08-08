@@ -25,7 +25,7 @@
         $description = $_GET['description'];
         $rating = $_GET['rating'];
         $poster = $_GET['poster'];
-        $sql = "INSERT INTO movies (title, genre, director, date, description, rating, poster)
+        $sql = "INSERT INTO movie (title, genre, director, date, description, rating, poster)
         VALUES ('$title', '$genre', '$director', '$date','$description', '$rating', '$poster')";
         echo $sql . "<p>";
 

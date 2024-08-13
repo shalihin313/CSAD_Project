@@ -1,0 +1,6 @@
+{
+  "name": "shalihin313/CSAD_Project",
+  "require": {
+    "monolog/monolog": "1.0.*"
+  }
+}

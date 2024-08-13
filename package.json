@@ -1,14 +1,11 @@
 {
-	"name": "csad-project",
+	"name": "CSAD-Project",
 	"version": "1.0.0",
 	"description": "Your description",
-	"main": "index.js",
 	"scripts": {
-		"start": "serve -s ."
+		"start": "echo 'No Node.js server to start'"
 	},
-	"dependencies": {
-		"serve": "^14.0.1"
-	},
+	"dependencies": {},
 	"engines": {
 		"node": "14.x"
 	}

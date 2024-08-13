@@ -25,7 +25,7 @@
                         <li type="button" class="menu-list-item"><a href="latestMovies.php">Latest Movies</a></li>
                         <li type="button" class="menu-list-item"><a href="create.php">Add Movies</a></li>
                         <li type="button" class="menu-list-item"><a href="display.php">Edit Movie</a></li>
-                        <li type="button" class="menu-list-item"><a href="">About Us</a></li>
+                        <li type="button" class="menu-list-item"><a href="">about.php</a></li>
 
                     </ul>
                 </div>

@@ -19,20 +19,20 @@ if (isset($_GET['add'])) {
     $title = $_GET['title'];
     $genre = $_GET['genre'];
     $director = $_GET['director'];
-    $release_date = $_GET['date'];
+    $release_date = $_GET['date']; // Adjusted variable name
     $description = $_GET['description'];
     $rating = $_GET['rating'];
     $poster = $_GET['poster'];
 
     // Prepare and execute the insert query
-    $query = "INSERT INTO movies (title, genre, director, date, description, rating, poster) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO movies (title, genre, director, release_date, description, rating, poster) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt === false) {
         handleError("Error preparing statement: " . mysqli_error($con), "create.php");
     }
 
-    mysqli_stmt_bind_param($stmt, 'sssssss', $title, $genre, $director, $date, $description, $rating, $poster);
+    mysqli_stmt_bind_param($stmt, 'sssssss', $title, $genre, $director, $release_date, $description, $rating, $poster);
 
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['message'] = "Movie Added Successfully";
@@ -78,20 +78,20 @@ if (isset($_POST['update'])) {
     $title = $_POST['title'];
     $genre = $_POST['genre'];
     $director = $_POST['director'];
-    $release_date = $_POST['date'];
+    $release_date = $_POST['date']; // Adjusted variable name
     $description = $_POST['description'];
     $rating = $_POST['rating'];
     $poster = $_POST['poster'];
 
     // Prepare and execute the update query
-    $query = "UPDATE movies SET title=?, genre=?, director=?, date=?, description=?, rating=?, poster=? WHERE id=?";
+    $query = "UPDATE movies SET title=?, genre=?, director=?, release_date=?, description=?, rating=?, poster=? WHERE id=?";
     $stmt = mysqli_prepare($con, $query);
 
     if ($stmt === false) {
         handleError("Error preparing statement: " . mysqli_error($con), "display.php");
     }
 
-    mysqli_stmt_bind_param($stmt, 'sssssssi', $title, $genre, $director, $date, $description, $rating, $poster, $id);
+    mysqli_stmt_bind_param($stmt, 'sssssssi', $title, $genre, $director, $release_date, $description, $rating, $poster, $id);
 
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['message'] = "Movie Updated Successfully";

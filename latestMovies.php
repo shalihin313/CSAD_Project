@@ -82,9 +82,11 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<div class="row text-center">';
             while ($row = $result->fetch_assoc()) {
+                 $imgSrc = 'image/' . $row['poster'];
+                // Debugging: Print out the image source path
                 echo '<div class="col-sm-4">';
                 echo '<div class="thumbnail">';
-                echo '<img src="image/' . $row['poster'] . '" alt="movies" width="400" height="300">';
+                echo '<img src="' . $imgSrc . '" alt="movies" width="400" height="300">';
                 echo '<h3>' . $row['title'] . '</h3>';
                 echo '<p>' . $row['description'] . '</p>';
                 echo '</div>';

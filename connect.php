@@ -1,12 +1,16 @@
 <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "my_db";
+// Get Heroku ClearDB connection information
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$cleardb_server = $cleardb_url["host"];
+$cleardb_username = $cleardb_url["user"];
+$cleardb_password = $cleardb_url["pass"];
+$cleardb_db = substr($cleardb_url["path"], 1);
 
 // Create connection
-        $con = new mysqli($servername, $username, $password, $dbname);
+$con = new mysqli($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+
 // Check connection
-        if ($con->connect_error) {
-            die("Connection failed: " . $con->connect_error);
-        }
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+?>

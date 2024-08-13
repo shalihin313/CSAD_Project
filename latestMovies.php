@@ -52,15 +52,22 @@
 
         </style>
     </head>
-    <body><?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "my_db";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if (mysqli_connect_error()) {
-    die("Database connection failed: " . mysqli_connect_error());
-}
+    <body>
+     <?php
+        // Get Heroku ClearDB connection information
+        $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+        $cleardb_server = $cleardb_url["host"];
+        $cleardb_username = $cleardb_url["user"];
+        $cleardb_password = $cleardb_url["pass"];
+        $cleardb_db = substr($cleardb_url["path"], 1);
+
+        // Create connection
+        $conn = new mysqli($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Database connection failed: " . $conn->connect_error);
+        }
 $sql = "SELECT * FROM movies";
 $result = $conn->query($sql);
 

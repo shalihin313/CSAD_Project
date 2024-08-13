@@ -1,79 +1,98 @@
-
-<!DOCTYPE html>
+<?php
+session_start();
+require 'connect.php';
+?>
+<!doctype html>
 <html lang="en">
-<head>
-  <title>My Project</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="addStyle.css">
-</head>
-<body>
-    <h1>My Movies</h1>
-    <div class="container">
-        <button class="btn"><a href="add.php">Add Movies</a></button>
-    </div>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="tableHeader" scope="col">#</th>
-        <th class="tableHeader" scope="col">Title</th>
-        <th class="tableHeader" scope="col">Genre</th>
-        <th class="tableHeader" scope="col">Director</th>
-        <th class="tableHeader" scope="col">Date</th>
-        <th class="tableHeader" scope="col">Description</th>
-        <th class="tableHeader" scope="col">Rating</th>
-        <th class="tableHeader" scope="col">Poster</th>
-        <th class="tableHeader" scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        <?php 
-        include 'serverData.php';
-        $sql = "select * from `movie`";
-        $result = mysqli_query($conn, $sql);
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         
-        if($result){
-            //$row = mysqli_fetch_assoc($result);
-           // echo $row['title'];
-        }while($row = mysqli_fetch_assoc($result)){
-            $id = $row['id'];
-            $title = $row['title'];
-            $genre = $row['genre'];
-            $director = $row['director'];
-            $date = $row['date'];
-            $description = $row['description'];
-            $rating = $row['rating'];
-            $poster = $row['poster'];
+        <Style>
+        body{
+            background-color: black;
+            color:red;
             
-            echo '<tr>
-                <th scope="row">'.$id.'</th>
-                <td>'.$title.'</td>
-                <td>'.$genre.'</td>
-                <td>'.$director.'</td>
-                <td>'.$date.'</td>
-                <td>'.$description.'</td>
-                <td>'.$rating.'</td>
-                <td>'.$poster.'</td>
-                    <td>
-                    <button class="btn-success">
-                    <a href="update.php?updateid='.$id.'">Update</a></button>
-                    <button class="btn-danger">
-                    <a href="delete.php?deleteid='.$id.'">Delete</a></button>
-                    </td>
-                 </tr>';
-           
-            
-            
-        }
-                
-        ?>
-     
-      </tr>
-     
-    </tbody>
-  </table>
-</div>
+            }
+         </style>
+        
+        
+        <title>Movies</title>
+    </head>
+    <body>
+        <h1 class>Movie-GO </h1>
 
-</body>
+        <div class="container mt-4">
+
+            <?php include('message.php'); ?>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Movie List Details
+                                <a href="home.php" class="btn btn-danger float-end">Back to Home</a>
+                                <a href="create.php" class="btn btn-primary float-end">Add Movies</a>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Movie Title</th>
+                                        <th>Genre</th>
+                                        <th>Director</th>
+                                        <th>Year of Release</th>
+                                        <th>Description</th>
+                                        <th>Rating</th>
+                                        <th>Movie Poster</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $query = "SELECT * FROM movies";
+                                    $query_run = mysqli_query($con, $query);
+
+                                    if (mysqli_num_rows($query_run) > 0) {
+                                        foreach ($query_run as $movies) {
+                                            ?>
+                                            <tr>
+                                                <td><?= $movies['id']; ?></td>
+                                                <td><?= $movies['title']; ?></td>
+                                                <td><?= $movies['genre']; ?></td>
+                                                <td><?= $movies['director']; ?></td>
+                                                <td><?= $movies['date']; ?></td>
+                                                <td><?= $movies['description']; ?></td>
+                                                <td><?= $movies['rating']; ?></td>
+                                                <td><?= $movies['poster']; ?></td>
+                                                <td>
+                                                    <a href="view.php?id=<?= $movies['id']; ?>" class="btn btn-info btn-sm">View</a>
+                                                    <a href="edit.php?id=<?= $movies['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                                    <form action="code.php" method="POST" class="d-inline">
+                                                        <button type="submit" name="delete_movies" value="<?= $movies['id']; ?>" class="btn btn-danger btn-sm">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+        <?php
+    }
+} else {
+    echo "<h5> No Record Found </h5>";
+}
+?>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
 </html>

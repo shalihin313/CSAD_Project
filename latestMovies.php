@@ -82,13 +82,18 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<div class="row text-center">';
             while ($row = $result->fetch_assoc()) {
+                $imgSrc = htmlspecialchars($row['poster']);
+                $title = htmlspecialchars($row['title']);
+                $description = htmlspecialchars($row['description']);
+
                 echo '<div class="col-sm-4">';
                 echo '<div class="thumbnail">';
-                echo '<img src=' . $row['poster'] .'" alt="movies" width="400" height="300">';
-                echo '<h3>' . $row['title'] . '</h3>';
-                echo '<p>' . $row['description'] . '</p>';
+                echo "<img src=\"$imgSrc\" alt=\"movies\" width=\"400\" height=\"300\">";
+                echo "<h3>$title</h3>";
+                echo "<p>$description</p>";
                 echo '</div>';
                 echo '</div>';
+
                 $count++;
                 if ($count == 3) {
                     echo '</div>';

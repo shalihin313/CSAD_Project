@@ -56,7 +56,7 @@
 </head>
 <body>
     
-    <a href="home.php" class="btn btn-danger">Back to Home</a>
+    <a href="index.php" class="btn btn-danger">Back to Home</a>
     <div class="container">
         
     <h1>About Us</h1>

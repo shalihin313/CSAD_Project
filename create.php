@@ -36,7 +36,7 @@ session_start();
                 <div class="card">
                     <div class="card-header">
                         <h4>ADD MOVIES
-                            <a href="home.php" class="btn btn-danger float-end">BACK to HOME</a>
+                            <a href="index.php" class="btn btn-danger float-end">BACK to HOME</a>
                             <a href="display.php" class="btn btn-success float-end">Movie Lists</a>
                         </h4>
                     </div>

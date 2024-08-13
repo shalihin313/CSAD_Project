@@ -32,7 +32,7 @@ require 'connect.php';
                     <div class="card">
                         <div class="card-header">
                             <h4>Movie List Details
-                                <a href="home.php" class="btn btn-danger float-end">Back to Home</a>
+                                <a href="index.php" class="btn btn-danger float-end">Back to Home</a>
                                 <a href="create.php" class="btn btn-primary float-end">Add Movies</a>
                             </h4>
                         </div>

@@ -72,7 +72,7 @@ $sql = "SELECT * FROM movies";
 $result = $conn->query($sql);
 
 ?>
-<a href="home.php" class="btn btn-danger">Back to Home</a>
+<a href="index.php" class="btn btn-danger">Back to Home</a>
 <div class="container-fluid text-center bg-grey" id="poster">
     <h1>LATEST MOVIES</h1><br>
     <div class="row text-center">

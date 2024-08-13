@@ -84,7 +84,7 @@ $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="col-sm-4">';
                 echo '<div class="thumbnail">';
-                echo '<img src="'$row['poster'].'" alt="movies" width="400" height="300">';
+                echo '<img src="images/' . $row['poster'].'" alt="movies" width="400" height="300">';
                 echo '<h3>' . $row['title'] . '</h3>';
                 echo '<p>' . $row['description'] . '</p>';
                 echo '</div>';

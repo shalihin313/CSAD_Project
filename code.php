@@ -19,7 +19,7 @@ if (isset($_GET['add'])) {
     $title = $_GET['title'];
     $genre = $_GET['genre'];
     $director = $_GET['director'];
-    $date = $_GET['date'];
+    $release_date = $_GET['date'];
     $description = $_GET['description'];
     $rating = $_GET['rating'];
     $poster = $_GET['poster'];
@@ -78,7 +78,7 @@ if (isset($_POST['update'])) {
     $title = $_POST['title'];
     $genre = $_POST['genre'];
     $director = $_POST['director'];
-    $date = $_POST['date'];
+    $release_date = $_POST['date'];
     $description = $_POST['description'];
     $rating = $_POST['rating'];
     $poster = $_POST['poster'];

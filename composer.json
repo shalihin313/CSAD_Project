@@ -1,5 +1,5 @@
 {
-  "name": "shalihin313/CSAD_Project",
+  "name": "shalihin313/csad_project",
   "require": {
     "monolog/monolog": "1.0.*"
   }

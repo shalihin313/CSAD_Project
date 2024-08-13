@@ -41,7 +41,7 @@ session_start();
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="code.php" method="GET">
+                        <form action="code.php" method="POST" enctype="multipart/form-data">
 
                             <div class="mb-3">
                                 <label>Movie Title</label>
@@ -69,7 +69,7 @@ session_start();
                             </div>
                             <div class="mb-3">
                                 <label>Movie Poster</label>
-                                <form action="upload.php" method="post" enctype="multipart/form-data">
+                                
                                 <input type="file" name="poster" id="poster">
                             </div>
                             <div class="mb-3">

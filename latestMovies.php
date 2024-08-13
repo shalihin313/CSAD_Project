@@ -82,7 +82,7 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo '<div class="row text-center">';
             while ($row = $result->fetch_assoc()) {
-                $imgSrc = htmlspecialchars($row['poster']);
+                $imgSrc = htmlspecialchars("https://raw.githubusercontent.com/shalihin313/CSAD_project/main/image/" . $row['poster']);
                 $title = htmlspecialchars($row['title']);
                 $description = htmlspecialchars($row['description']);
 

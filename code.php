@@ -15,14 +15,52 @@ function handleError($message, $redirect) {
 }
 
 // Check if 'add' action is set
-if (isset($_GET['add'])) {
-    $title = $_GET['title'];
-    $genre = $_GET['genre'];
-    $director = $_GET['director'];
-    $release_date = $_GET['date']; // Correct variable name
-    $description = $_GET['description'];
-    $rating = $_GET['rating'];
-    $poster = $_GET['poster'];
+if (isset($_POST['add'])) {
+    $title = $_POST['title'];
+    $genre = $_POST['genre'];
+    $director = $_POST['director'];
+    $release_date = $_POST['date'];
+    $description = $_POST['description'];
+    $rating = $_POST['rating'];
+
+    // Handle the poster file upload
+    $poster = null;
+    if (isset($_FILES['poster']) && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
+        $target_dir = "image/";  // Directory where the file will be uploaded
+        $target_file = $target_dir . basename($_FILES["poster"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is an actual image or fake image
+        $check = getimagesize($_FILES["poster"]["tmp_name"]);
+        if ($check === false) {
+            handleError("File is not an image.", "create.php");
+            $uploadOk = 0;
+        }
+
+        // Check file size (e.g., max 5MB)
+        if ($_FILES["poster"]["size"] > 5000000) {
+            handleError("Sorry, your file is too large.", "create.php");
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats (e.g., jpg, png, jpeg, gif)
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            handleError("Sorry, only JPG, JPEG, PNG & GIF files are allowed.", "create.php");
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            handleError("Sorry, your file was not uploaded.", "create.php");
+        } else {
+            if (move_uploaded_file($_FILES["poster"]["tmp_name"], $target_file)) {
+                $poster = basename($_FILES["poster"]["name"]); // Save the filename in the database
+            } else {
+                handleError("Sorry, there was an error uploading your file.", "create.php");
+            }
+        }
+    }
 
     // Prepare and execute the insert query
     $query = "INSERT INTO movies (title, genre, director, release_date, description, rating, poster) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -78,10 +116,31 @@ if (isset($_POST['update'])) {
     $title = $_POST['title'];
     $genre = $_POST['genre'];
     $director = $_POST['director'];
-    $release_date = $_POST['date']; // Correct variable name
+    $release_date = $_POST['date'];
     $description = $_POST['description'];
     $rating = $_POST['rating'];
-    $poster = $_POST['poster'];
+
+    // Handle the poster file upload (if new file uploaded)
+    if (isset($_FILES['poster']) && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
+        $target_dir = "image/";
+        $target_file = $target_dir . basename($_FILES["poster"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Validate file
+        $check = getimagesize($_FILES["poster"]["tmp_name"]);
+        if ($check === false || $_FILES["poster"]["size"] > 5000000 || !in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
+            handleError("Invalid file or file size too large.", "display.php");
+        } else {
+            if (move_uploaded_file($_FILES["poster"]["tmp_name"], $target_file)) {
+                $poster = basename($_FILES["poster"]["name"]);
+            } else {
+                handleError("Sorry, there was an error uploading your file.", "display.php");
+            }
+        }
+    } else {
+        $poster = $_POST['current_poster']; // Keep the current poster if no new file uploaded
+    }
 
     // Prepare and execute the update query
     $query = "UPDATE movies SET title=?, genre=?, director=?, release_date=?, description=?, rating=?, poster=? WHERE id=?";

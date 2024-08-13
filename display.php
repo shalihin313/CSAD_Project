@@ -65,10 +65,12 @@ require 'connect.php';
                                                 <td><?= $movies['title']; ?></td>
                                                 <td><?= $movies['genre']; ?></td>
                                                 <td><?= $movies['director']; ?></td>
-                                                <td><?= $movies['release_date']; ?></td>
+                                                <td><?= $movies['date']; ?></td>
                                                 <td><?= $movies['description']; ?></td>
                                                 <td><?= $movies['rating']; ?></td>
-                                                <td><img src="<?= $movies['poster']; ?>" alt="Poster" style="max-width: 100px; height: auto;"></td>
+                                                <td>  
+                                                    <img src="image/<?= htmlspecialchars($movies['poster']); ?>" alt="<?= htmlspecialchars($movies['title']); ?>" width="100" height="150">
+                                                </td>
                                                 <td>
                                                     <a href="view.php?id=<?= $movies['id']; ?>" class="btn btn-info btn-sm">View</a>
                                                     <a href="edit.php?id=<?= $movies['id']; ?>" class="btn btn-success btn-sm">Edit</a>

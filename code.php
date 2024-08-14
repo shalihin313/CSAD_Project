@@ -42,7 +42,7 @@ if (isset($_POST['add'])) {
 
         // Initialize GitHub Client
         $client = new Client();
-        $client->authenticate($githubToken, Client::AUTH_HTTP_TOKEN);
+        $client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
 
         // Read the file content
         $fileContent = base64_encode(file_get_contents($filePath));

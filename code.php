@@ -22,7 +22,7 @@ function handleError($message, $redirect) {
 $githubUsername = 'shalihin313';
 $githubRepo = 'CSAD_project';
 $githubFolder = 'image';
-$githubToken = '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'; // Replace with your GitHub PAT
+$githubToken = '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'; // Replace with your GitHub PAT
 
 // Check if 'add' action is set
 if (isset($_POST['add'])) {

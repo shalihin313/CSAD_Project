@@ -1,55 +1,56 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Dynamic Bootstrap</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-      
-        <style>
-             body{
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
             background-color: black;
-            color:red;
-             }
-             h1{
-                 font-size: 100px;
-                 font-weight: bold;
-             }
-             h3{
-                 font-size: 50px;
-                 color: red;
-             }
-             p{
-                 font-size: 30px;
-                 color: white;
-             }
-           
-            .thumbnail {
-                padding: 0 0 15px 0;
-                border: none;
-                border-radius: 0;
-                background-color: black;
-                
-            }
-            .thumbnail img {
-                width: 300px;
-                height: 400px;
-                margin-bottom: 10px;
-            }
-
-            img {
-                display: block;
-                margin-left: 80px;
-                margin-right: auto;
-                width: 35%;
-            }
-            .btn{
-                padding: 20px 20px;
-                font-size: 18px;
-                font-weight: bold;
-            }
-          
-            
-<?php
+            color: red;
+        }
+        h1 {
+            font-size: 100px;
+            font-weight: bold;
+        }
+        h3 {
+            font-size: 50px;
+            color: red;
+        }
+        p {
+            font-size: 30px;
+            color: white;
+        }
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+            background-color: black;
+        }
+        .thumbnail img {
+            width: 300px;
+            height: 400px;
+            margin-bottom: 10px;
+        }
+        img {
+            display: block;
+            margin-left: 80px;
+            margin-right: auto;
+            width: 35%;
+        }
+        .btn {
+            padding: 20px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <?php
     // Get Heroku ClearDB connection information
     $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
     $cleardb_server = $cleardb_url["host"];

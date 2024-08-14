@@ -93,6 +93,39 @@ if (isset($_POST['update'])) {
     mysqli_close($con);
     header("Location: display.php");
     exit(0);
+    }
+
+    // Check if 'delete_movies' action is set
+if (isset($_POST['delete_movies'])) {
+    $id = $_POST['delete_movies'];
+
+    // Validate that $id is a number
+    if (filter_var($id, FILTER_VALIDATE_INT)) {
+        // Prepare and execute the delete query
+        $query = "DELETE FROM movies WHERE id=?";
+        $stmt = mysqli_prepare($con, $query);
+
+        if ($stmt === false) {
+            handleError("Error preparing statement: " . mysqli_error($con), "display.php");
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $_SESSION['message'] = "Movie deleted successfully";
+        } else {
+            handleError("Failed to delete movie: " . mysqli_stmt_error($stmt), "display.php");
+        }
+
+        mysqli_stmt_close($stmt);
+    } else {
+        handleError("Invalid ID provided for deletion.", "display.php");
+    }
+
+    mysqli_close($con);
+    header("Location: display.php");
+    exit(0);
+
 }
 
 // Handle case where no valid action is set

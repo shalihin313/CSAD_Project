@@ -68,7 +68,9 @@ require 'connect.php';
                                                 <td><?= $movies['release_date']; ?></td>
                                                 <td><?= $movies['description']; ?></td>
                                                 <td><?= $movies['rating']; ?></td>
-                                                <td><?= $movies['poster']; ?></td>
+                                                <td>
+                                                    <img src="<?= $movies['poster']; ?>" alt="Movie Poster" style="width: 100px; height: auto;">
+                                                </td>
                                                 <td>
                                                     <a href="view.php?id=<?= $movies['id']; ?>" class="btn btn-info btn-sm">View</a>
                                                     <a href="edit.php?id=<?= $movies['id']; ?>" class="btn btn-success btn-sm">Edit</a>

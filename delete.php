@@ -28,21 +28,23 @@ if (isset($_GET['deleteid'])) {
 
         if ($result) {
             $_SESSION['message'] = "Movie deleted successfully";
-            header('Location: display.php');
-            exit();
         } else {
-            // Log the error and show a user-friendly message
-            error_log($stmt->error);
-            $_SESSION['message'] = "Failed to delete the movie. Please try again.";
-            header('Location: display.php');
-            exit();
+            $_SESSION['message'] = "Failed to delete the movie. Error: " . $stmt->error;
         }
 
         $stmt->close();
     } else {
         $_SESSION['message'] = "Invalid movie ID.";
-        header('Location: display.php');
-        exit();
+    }
+} else {
+    $_SESSION['message'] = "No movie ID provided.";
+}
+
+$conn->close();
+
+header('Location: display.php');
+exit();
+
     }
 }
 

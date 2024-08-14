@@ -50,7 +50,7 @@ session_start();
                             </div>
                             <div class="mb-3">
                                 <label>Year of Release</label>
-                                <input type="text" name="date" class="form-control" required>
+                                <input type="text" name="date" class="form-control" placeholder="YYYY-MM-DD" required>
                             </div>
                             <div class="mb-3">
                                 <label>Description</label>

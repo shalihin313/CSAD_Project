@@ -6,9 +6,6 @@ use Github\Client;
 
 require 'vendor/autoload.php';
 
-$githubToken = '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';
-$client = new Client();
-$client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
 
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
@@ -45,7 +42,7 @@ if (isset($_POST['add'])) {
 
         // Initialize GitHub Client
         $client = new Client();
-        $client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
+        $client->authenticate($githubToken, Client::AUTH_HTTP_TOKEN);
 
         // Read the file content
         $fileContent = base64_encode(file_get_contents($filePath));

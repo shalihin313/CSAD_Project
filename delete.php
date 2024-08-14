@@ -22,7 +22,7 @@ if (isset($_GET['deleteid'])) {
     // Validate that $id is a number
     if (filter_var($id, FILTER_VALIDATE_INT)) {
         // Use prepared statements for security
-        $stmt = $conn->prepare("DELETE FROM movie WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM movies WHERE id = ?");
         $stmt->bind_param("i", $id);
         $result = $stmt->execute();
 

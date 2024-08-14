@@ -65,7 +65,7 @@ require 'connect.php';
                                                 <td><?= $movies['title']; ?></td>
                                                 <td><?= $movies['genre']; ?></td>
                                                 <td><?= $movies['director']; ?></td>
-                                                <td><?= $movies['date']; ?></td>
+                                                <td><?= $movies['release_date']; ?></td>
                                                 <td><?= $movies['description']; ?></td>
                                                 <td><?= $movies['rating']; ?></td>
                                                 <td><?= $movies['poster']; ?></td>

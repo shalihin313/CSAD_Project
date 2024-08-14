@@ -21,7 +21,7 @@ function handleError($message, $redirect) {
 // GitHub repository details
 $githubUsername = 'shalihin313';
 $githubRepo = 'CSAD_project';
-$githubFolder = 'image';
+$githubFolder = '';
 $githubToken = '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'; // Replace with your GitHub PAT
 
 // Check if 'add' action is set

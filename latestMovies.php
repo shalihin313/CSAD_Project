@@ -49,64 +49,61 @@
             }
           
             
-
-        </style>
-    </head>
-    <body>
-     <?php
-        // Get Heroku ClearDB connection information
-        $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-        $cleardb_server = $cleardb_url["host"];
-        $cleardb_username = $cleardb_url["user"];
-        $cleardb_password = $cleardb_url["pass"];
-        $cleardb_db = substr($cleardb_url["path"], 1);
-
-        // Create connection
-        $conn = new mysqli($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Database connection failed: " . $conn->connect_error);
-        }
-$sql = "SELECT * FROM movies";
-$result = $conn->query($sql);
-
-?>
-<a href="index.php" class="btn btn-danger">Back to Home</a>
-<div class="container-fluid text-center bg-grey" id="poster">
-    <h1>LATEST MOVIES</h1><br>
-    <div class="row text-center">
-        <?php
-        $count = 0;
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            echo '<div class="row text-center">';
-            while ($row = $result->fetch_assoc()) {
-                $imgSrc = htmlspecialchars("https://raw.githubusercontent.com/shalihin313/CSAD_project/main/image/" . $row['poster']);
-                $title = htmlspecialchars($row['title']);
-                $description = htmlspecialchars($row['description']);
-
-                echo '<div class="col-sm-4">';
-                echo '<div class="thumbnail">';
-                echo "<img src=\"$imgSrc\" alt=\"movies\" width=\"400\" height=\"300\">";
-                echo "<h3>$title</h3>";
-                echo "<p>$description</p>";
-                echo '</div>';
-                echo '</div>';
-
-                $count++;
-                if ($count == 3) {
-                    echo '</div>';
-                    echo '<div class="row text-center">';
-                    $count = 0;
-                }
-            }
-        }
-        ?>
-    </div>
-</div>
 <?php
-$conn->close();
-?>
-    </body>
+    // Get Heroku ClearDB connection information
+    $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    $cleardb_server = $cleardb_url["host"];
+    $cleardb_username = $cleardb_url["user"];
+    $cleardb_password = $cleardb_url["pass"];
+    $cleardb_db = substr($cleardb_url["path"], 1);
+
+    // Create connection
+    $conn = new mysqli($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Database connection failed: " . $conn->connect_error);
+    }
+
+    // Fetch movie data
+    $sql = "SELECT * FROM movies";
+    $result = $conn->query($sql);
+    ?>
+    <a href="index.php" class="btn btn-danger">Back to Home</a>
+    <div class="container-fluid text-center bg-grey" id="poster">
+        <h1>LATEST MOVIES</h1><br>
+        <div class="row text-center">
+            <?php
+            if ($result->num_rows > 0) {
+                $count = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $imgSrc = htmlspecialchars($row['poster']); // Poster URL from the database
+                    $title = htmlspecialchars($row['title']);
+                    $description = htmlspecialchars($row['description']);
+
+                    echo '<div class="col-sm-4">';
+                    echo '<div class="thumbnail">';
+                    echo "<img src=\"$imgSrc\" alt=\"movies\" width=\"400\" height=\"300\">";
+                    echo "<h3>$title</h3>";
+                    echo "<p>$description</p>";
+                    echo '</div>';
+                    echo '</div>';
+
+                    $count++;
+                    if ($count % 3 == 0) { // Create a new row after every 3 movies
+                        echo '</div>';
+                        echo '<div class="row text-center">';
+                    }
+                }
+                echo '</div>'; // Close the last row
+            } else {
+                echo '<p>No movies found.</p>';
+            }
+            ?>
+        </div>
+    </div>
+    <?php
+    $conn->close();
+    ?>
+</body>
 </html>

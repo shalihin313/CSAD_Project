@@ -6,6 +6,7 @@ use Github\Client;
 
 require 'vendor/autoload.php';
 
+$githubToken = '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';
 $client = new Client();
 $client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
 

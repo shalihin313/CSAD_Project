@@ -6,6 +6,9 @@ use Github\Client;
 
 require 'vendor/autoload.php';
 
+$client = new Client();
+$client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
+
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -21,7 +24,7 @@ function handleError($message, $redirect) {
 // GitHub repository details
 $githubUsername = 'shalihin313';
 $githubRepo = 'CSAD_project';
-$githubFolder = 'image';
+$githubFolder = '/image';
 $githubToken = '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'; // Replace with your GitHub PAT
 
 // Check if 'add' action is set

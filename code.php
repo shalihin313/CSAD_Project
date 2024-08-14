@@ -2,6 +2,10 @@
 session_start();
 require 'connect.php';
 
+use Github\Client;
+
+require 'vendor/autoload.php';
+
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -13,6 +17,12 @@ function handleError($message, $redirect) {
     header("Location: $redirect");
     exit(0);
 }
+
+// GitHub repository details
+$githubUsername = 'shalihin313';
+$githubRepo = 'CSAD_project';
+$githubFolder = 'image';
+$githubToken = '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'; // Replace with your GitHub PAT
 
 // Check if 'add' action is set
 if (isset($_POST['add'])) {
@@ -26,39 +36,29 @@ if (isset($_POST['add'])) {
     // Handle the poster file upload
     $poster = null;
     if (isset($_FILES['poster']) && $_FILES['poster']['error'] == UPLOAD_ERR_OK) {
-        $target_dir = "image/";  // Directory where the file will be uploaded
-        $target_file = $target_dir . basename($_FILES["poster"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $filePath = $_FILES['poster']['tmp_name'];
+        $fileName = basename($_FILES["poster"]["name"]);
 
-        // Check if image file is an actual image or fake image
-        $check = getimagesize($_FILES["poster"]["tmp_name"]);
-        if ($check === false) {
-            handleError("File is not an image.", "create.php");
-            $uploadOk = 0;
-        }
+        // Initialize GitHub Client
+        $client = new Client();
+        $client->authenticate($githubToken, null, Client::AUTH_ACCESS_TOKEN);
 
-        // Check file size (e.g., max 5MB)
-        if ($_FILES["poster"]["size"] > 5000000) {
-            handleError("Sorry, your file is too large.", "create.php");
-            $uploadOk = 0;
-        }
+        // Read the file content
+        $fileContent = base64_encode(file_get_contents($filePath));
 
-        // Allow certain file formats (e.g., jpg, png, jpeg, gif)
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            handleError("Sorry, only JPG, JPEG, PNG & GIF files are allowed.", "create.php");
-            $uploadOk = 0;
-        }
-
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            handleError("Sorry, your file was not uploaded.", "create.php");
-        } else {
-            if (move_uploaded_file($_FILES["poster"]["tmp_name"], $target_file)) {
-                $poster = basename($_FILES["poster"]["name"]); // Save the filename in the database
-            } else {
-                handleError("Sorry, there was an error uploading your file.", "create.php");
-            }
+        // Create a new file in the repository
+        try {
+            $client->repo()->contents()->create(
+                $githubUsername,
+                $githubRepo,
+                "$githubFolder/$fileName",
+                $fileContent,
+                "Add $fileName via PHP form",
+                'main'
+            );
+            $poster = $fileName; // Save the filename to the database
+        } catch (Exception $e) {
+            handleError("Failed to upload poster to GitHub: " . $e->getMessage(), "create.php");
         }
     }
 
@@ -83,33 +83,6 @@ if (isset($_POST['add'])) {
     header("Location: create.php");
     exit(0);
 }
-
-// Check if 'delete_movies' action is set
-if (isset($_POST['delete_movies'])) {
-    $movies_id = $_POST['delete_movies'];
-
-    // Prepare and execute the delete query
-    $query = "DELETE FROM movies WHERE id=?";
-    $stmt = mysqli_prepare($con, $query);
-
-    if ($stmt === false) {
-        handleError("Error preparing statement: " . mysqli_error($con), "display.php");
-    }
-
-    mysqli_stmt_bind_param($stmt, 'i', $movies_id);
-
-    if (mysqli_stmt_execute($stmt)) {
-        $_SESSION['message'] = "Movie Deleted Successfully";
-    } else {
-        handleError("Failed to Delete Movie: " . mysqli_stmt_error($stmt), "display.php");
-    }
-
-    mysqli_stmt_close($stmt);
-    mysqli_close($con);
-    header("Location: display.php");
-    exit(0);
-}
-
 // Check if 'update' action is set
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
